@@ -1,0 +1,16 @@
+app:
+  name: schedule-api
+  api:
+    title: Exam Schedule Api
+    group: schedule-api
+    version: 1.0.0
+    description: CRUD API for certificate exam scheduling
+    base-package: br.com.macedo.scheduleapi
+    contact-name: Joao Victor Macedo
+    contact-email: dev@macedo.com
+    swagger:
+      enable: true
+
+springdoc:
+  swagger-ui:
+    path: /swag
