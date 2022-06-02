@@ -15,9 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.Collection;
-import java.util.List;
-
 @Configuration
 @EnableWebSecurity
 @Slf4j
@@ -35,7 +32,8 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swag"
+            "/swagger",
+            "/api/swagger.json"
     };
 
 
@@ -47,7 +45,7 @@ public class SecurityConfig {
                     auth.antMatchers(authBypass).permitAll();
                     auth.anyRequest().authenticated();
                 }
-        );
+        ).httpBasic();
 
         return http.build();
     }
