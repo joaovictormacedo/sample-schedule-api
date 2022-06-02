@@ -44,8 +44,9 @@ public class SecurityConfig {
                 auth -> {
                     auth.antMatchers(authBypass).permitAll();
                     auth.anyRequest().authenticated();
+
                 }
-        ).httpBasic();
+        ).httpBasic().and().csrf().disable();
 
         return http.build();
     }
