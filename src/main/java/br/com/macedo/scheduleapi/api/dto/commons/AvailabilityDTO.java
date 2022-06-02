@@ -6,13 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(name = "Room", description = "room information")
-public class RoomDTO {
+@Schema(name = "Availability", description = "room availability")
+public class AvailabilityDTO {
 
-    private Integer number;
+    private RoomDTO room;
+    private LocalDateTime date;
 
 }

@@ -1,5 +1,4 @@
-package br.com.macedo.scheduleapi.api.dto.request.room;
-
+package br.com.macedo.scheduleapi.api.dto.commons;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -11,9 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(name = "RoomInsert", description = "room data insert")
-public class RoomInsertDTO {
+@Schema(name = "Candidate", description = "candidate information")
+public class CandidateDTO {
 
-    private Integer number;
+    private Long id;
+    private String name;
+    private String email;
 
 }

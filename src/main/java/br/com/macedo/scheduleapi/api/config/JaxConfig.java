@@ -1,6 +1,5 @@
 package br.com.macedo.scheduleapi.api.config;
 
-import br.com.macedo.scheduleapi.api.controller.ScheduleController;
 import io.swagger.jaxrs.config.BeanConfig;
 import io.swagger.jaxrs.config.SwaggerContextService;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
@@ -19,13 +18,12 @@ import javax.ws.rs.Path;
 @Component
 @ApplicationPath("/api")
 @Path("/")
-public class JaxConfig extends ResourceConfig  implements ServletConfigAware {
+public class JaxConfig extends ResourceConfig implements ServletConfigAware {
 
     private ServletConfig servletConfig;
 
     public JaxConfig() {
         packages("br.com.macedo.scheduleapi.api.controller");
-        register(ScheduleController.class);
         register(OpenApiResource.class);
         configureSwagger();
     }
