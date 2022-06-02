@@ -37,13 +37,12 @@ public class JaxConfig extends ResourceConfig  implements ServletConfigAware {
         register(SwaggerSerializers.class);
 
         BeanConfig beanConfig = new BeanConfig();
-        beanConfig.setTitle("Jaum");
+        beanConfig.setTitle("Schedule API");
         beanConfig.setVersion("1.0.0");
         beanConfig.setSchemes(new String[]{"http"});
         beanConfig.setHost("localhost:8080");
         beanConfig.setBasePath("/api");
         beanConfig.setPrettyPrint(true);
-
         beanConfig.setResourcePackage("br.com.macedo.scheduleapi.api.controller");
         beanConfig.setScan(true);
 
