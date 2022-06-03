@@ -17,8 +17,10 @@ public class Candidate {
     @Column(unique = true, nullable = false, updatable = false)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
 }
