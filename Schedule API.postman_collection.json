@@ -295,7 +295,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"roomId\": 2,\r\n  \"candidateId\": 1,\r\n  \"examId\": 1,\r\n  \"date\": \"2022-06-03T22:00:00\"\r\n}",
+							"raw": "{\r\n  \"roomId\": 1,\r\n  \"candidateId\": 1,\r\n  \"examId\": 1,\r\n  \"date\": \"2022-06-03T21:41:40\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -303,17 +303,175 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/schedule",
+							"raw": "{{localhost}}/api/schedule/",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"schedule"
+								"schedule",
+								""
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Agendar um horario já agendado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"roomId\": 2,\r\n  \"candidateId\": 1,\r\n  \"examId\": 1,\r\n  \"date\": \"2022-06-03T22:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/schedule/",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"schedule",
+										""
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "JSESSIONID=FFE8054874EE06E5AB8EEDF1C974BB52; Path=/; HttpOnly"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "88"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Jun 2022 17:17:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Availability not available\",\n    \"code\": 400,\n    \"date\": \"2022-06-03T14:17:53.0586683\"\n}"
+						},
+						{
+							"name": "Schedule OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"roomId\": 1,\r\n  \"candidateId\": 1,\r\n  \"examId\": 1,\r\n  \"date\": \"2022-06-03T21:41:40\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{localhost}}/api/schedule/",
+									"host": [
+										"{{localhost}}"
+									],
+									"path": [
+										"api",
+										"schedule",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "202"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 03 Jun 2022 17:18:46 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"room\": {\n        \"number\": 1\n    },\n    \"candidate\": {\n        \"id\": 1,\n        \"name\": \"Joao Victor\",\n        \"email\": \"joao@joao.com\"\n    },\n    \"exam\": {\n        \"id\": 1,\n        \"name\": \"Amazon Develop Test edit\",\n        \"date\": \"2022-07-06T17:00:00\"\n    },\n    \"date\": \"2022-06-03T21:41:40\"\n}"
+						}
+					]
 				},
 				{
 					"name": "List All",

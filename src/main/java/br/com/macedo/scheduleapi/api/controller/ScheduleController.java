@@ -9,7 +9,6 @@ import br.com.macedo.scheduleapi.domain.exception.ClientException;
 import br.com.macedo.scheduleapi.domain.exception.ExceptionResponse;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.*;
@@ -36,12 +35,8 @@ public class ScheduleController {
             @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response insert(@RequestBody ScheduleRequestDTO schedule) throws ClientException {
 
-        try {
-            var availabilityVO = scheduleService.insert(mapperApi.toScheduleVO(schedule));
-            return Response.ok().entity(mapperApi.toScheduleDTO(availabilityVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+        var availabilityVO = scheduleService.insert(mapperApi.toScheduleVO(schedule));
+        return Response.ok().entity(mapperApi.toScheduleDTO(availabilityVO)).build();
 
     }
 
@@ -51,15 +46,11 @@ public class ScheduleController {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = String.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response delete(@PathParam("id") Long id) {
 
-        try {
-            scheduleService.delete(id);
-            return Response.ok().entity("schedule successfully deleted").build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+        scheduleService.delete(id);
+        return Response.ok().entity("schedule successfully deleted").build();
 
     }
 
@@ -69,14 +60,12 @@ public class ScheduleController {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = ScheduleDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response get(@PathParam("id") Long id) {
-        try {
-            var scheduleVO = scheduleService.getById(id);
-            return Response.ok().entity(mapperApi.toScheduleDTO(scheduleVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+
+        var scheduleVO = scheduleService.getById(id);
+        return Response.ok().entity(mapperApi.toScheduleDTO(scheduleVO)).build();
+
     }
 
 
@@ -85,14 +74,12 @@ public class ScheduleController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = ScheduleDTO.class,
             responseContainer = "List"),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response getAll() {
-        try {
-            var lstSchedule = scheduleService.get();
-            return Response.ok().entity(mapperApi.toListscheduleDTO(lstSchedule)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+
+        var lstSchedule = scheduleService.get();
+        return Response.ok().entity(mapperApi.toListscheduleDTO(lstSchedule)).build();
+
     }
 
 }

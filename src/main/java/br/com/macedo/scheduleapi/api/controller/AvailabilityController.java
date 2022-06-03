@@ -4,10 +4,9 @@ import br.com.macedo.scheduleapi.api.dto.commons.AvailabilityDTO;
 import br.com.macedo.scheduleapi.api.dto.request.AvailabilityRequestDTO;
 import br.com.macedo.scheduleapi.api.mapper.MapperApi;
 import br.com.macedo.scheduleapi.application.service.AvailabilityService;
-import br.com.macedo.scheduleapi.domain.exception.ClientException;
+import br.com.macedo.scheduleapi.domain.exception.ExceptionResponse;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.*;
@@ -31,15 +30,11 @@ public class AvailabilityController {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response insert(@RequestBody AvailabilityRequestDTO availability) {
 
-        try {
-            var availabilityVO = availabilityService.insert(mapperApi.toAvailabilityVO(availability));
-            return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+        var availabilityVO = availabilityService.insert(mapperApi.toAvailabilityVO(availability));
+        return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
 
     }
 
@@ -50,18 +45,13 @@ public class AvailabilityController {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = String.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response delete(@PathParam("id") Long id) {
 
-        try {
-            availabilityService.delete(id);
-            return Response.ok().entity("Availability successfully deleted").build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+        availabilityService.delete(id);
+        return Response.ok().entity("Availability successfully deleted").build();
 
     }
-
 
 
     @PUT
@@ -69,15 +59,12 @@ public class AvailabilityController {
     @Consumes(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response update(@RequestBody AvailabilityDTO availability) {
 
-        try {
-            var availabilityVO = availabilityService.update(mapperApi.toAvailabilityVO(availability));
-            return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+        var availabilityVO = availabilityService.update(mapperApi.toAvailabilityVO(availability));
+        return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
+
     }
 
 
@@ -86,14 +73,12 @@ public class AvailabilityController {
     @Produces(MediaType.APPLICATION_JSON)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response get(@PathParam("id") Long id) {
-        try {
-            var availabilityVO = availabilityService.getById(id);
-            return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
+
+        var availabilityVO = availabilityService.getById(id);
+        return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
+
     }
 
 
@@ -102,16 +87,13 @@ public class AvailabilityController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class,
             responseContainer = "List"),
             @ApiResponse(code = 204, message = "Not Content"),
-            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+            @ApiResponse(code = 400, message = "Bad Request", response = ExceptionResponse.class)})
     public Response getAll() {
-        try {
-            var lstAvailabilityVO = availabilityService.getAll();
-            return Response.ok().entity(mapperApi.toListAvailabilityDTO(lstAvailabilityVO)).build();
-        } catch (ClientException e) {
-            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
-        }
-    }
 
+        var lstAvailabilityVO = availabilityService.getAll();
+        return Response.ok().entity(mapperApi.toListAvailabilityDTO(lstAvailabilityVO)).build();
+
+    }
 
 
 }

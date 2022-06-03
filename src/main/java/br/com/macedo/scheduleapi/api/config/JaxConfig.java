@@ -24,6 +24,7 @@ public class JaxConfig extends ResourceConfig implements ServletConfigAware {
 
     public JaxConfig() {
         packages("br.com.macedo.scheduleapi.api.controller");
+        register(ExceptionHandle.class);
         register(OpenApiResource.class);
         configureSwagger();
     }
