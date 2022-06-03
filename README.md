@@ -9,11 +9,11 @@ CRUD API for certificate exam scheduling
 - [x] Spring JPA
 - [x] JAX-RS (Jersey)
 - [x] Rest / Json
-- [X] Posrgres SQL
+- [X] PostgreSQL
 
 ## 💻 Requirements
 
-* Postgres SQL 
+* PostgreSQL 
 * Java 11
 
 ## 🚀 Development 
