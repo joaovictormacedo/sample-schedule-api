@@ -23,6 +23,7 @@
         <swagger.version>2.2.0</swagger.version>
         <swagger.jersey>1.6.6</swagger.jersey>
         <springdoc.openapi>1.2.18</springdoc.openapi>
+        <liquibase.version>4.11.0</liquibase.version>
     </properties>
     <dependencies>
 
@@ -123,7 +124,7 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>4.11.0</version>
+            <version>${liquibase.version}</version>
         </dependency>
 
 
