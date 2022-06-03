@@ -36,4 +36,8 @@ public interface EntitiesMapper {
     List<CandidateVO> toListCandidate(List<Candidate> c);
 
     List<ExamVO> toListExamVo(List<Exam> e);
+
+    List<RoomVO> toListRoomVO(List<Room> r);
+
+    List<ScheduleVO> toListScheduleVO(List<Availability> a);
 }

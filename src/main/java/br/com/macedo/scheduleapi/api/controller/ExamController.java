@@ -1,6 +1,5 @@
 package br.com.macedo.scheduleapi.api.controller;
 
-import br.com.macedo.scheduleapi.api.dto.commons.CandidateDTO;
 import br.com.macedo.scheduleapi.api.dto.commons.ExamDTO;
 import br.com.macedo.scheduleapi.api.dto.request.ExamRequestDTO;
 import br.com.macedo.scheduleapi.api.mapper.MapperApi;
@@ -94,14 +93,14 @@ public class ExamController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = CandidateDTO.class,
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = ExamDTO.class,
             responseContainer = "List"),
             @ApiResponse(code = 204, message = "Not Content"),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
     public Response getAll() {
         try {
-            var lstCandidate = examService.get();
-            return Response.ok().entity(mapperApi.toListExamDTO(lstCandidate)).build();
+            var lstExam = examService.get();
+            return Response.ok().entity(mapperApi.toListExamDTO(lstExam)).build();
         } catch (ClientException e) {
             return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
         }

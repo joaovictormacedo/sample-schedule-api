@@ -1,8 +1,6 @@
 package br.com.macedo.scheduleapi.api.controller;
 
-import br.com.macedo.scheduleapi.api.dto.commons.AvailabilityDTO;
 import br.com.macedo.scheduleapi.api.dto.commons.CandidateDTO;
-import br.com.macedo.scheduleapi.api.dto.request.AvailabilityRequestDTO;
 import br.com.macedo.scheduleapi.api.dto.request.CandidateRequestDTO;
 import br.com.macedo.scheduleapi.api.mapper.MapperApi;
 import br.com.macedo.scheduleapi.application.service.CandidateService;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
-import java.util.List;
 
 @Path("/candidate")
 @ApplicationPath("/api")

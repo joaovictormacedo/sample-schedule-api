@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 
 @Service
@@ -63,5 +64,31 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         return entitiesMapper.toScheduleVO(availabilityRepository.save(availability));
 
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+
+        var availability = availabilityRepository.findById(id).orElseThrow(() ->
+                new ClientException(new Exception("Schedule not found")));
+
+        availability.setCandidate(null);
+        availability.setExam(null);
+
+        availabilityRepository.save(availability);
+    }
+
+    @Override
+    public ScheduleVO getById(Long id) {
+        var availability = availabilityRepository.findById(id).orElseThrow(() ->
+                new ClientException(new Exception("Schedule not found")));
+
+        return entitiesMapper.toScheduleVO(availability);
+    }
+
+    @Override
+    public List<ScheduleVO> get() {
+        return entitiesMapper.toListScheduleVO(availabilityRepository.findAll());
     }
 }

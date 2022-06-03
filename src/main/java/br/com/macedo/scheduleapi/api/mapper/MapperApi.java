@@ -53,4 +53,8 @@ public interface MapperApi {
     List<CandidateVO> toListCandidateDTO(List<CandidateVO> c);
 
     List<ExamDTO> toListExamDTO(List<ExamVO> l);
+
+    List<RoomDTO> toListRoomDTO(List<RoomVO> r);
+
+    List<ScheduleDTO> toListscheduleDTO(List<ScheduleVO> lstSchedule);
 }
