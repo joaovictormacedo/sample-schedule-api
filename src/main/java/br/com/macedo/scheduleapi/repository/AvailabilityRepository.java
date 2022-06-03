@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
 
-    List<Availability> findByRoomAndDate(Room room, LocalDateTime date);
+    Optional<Availability> findByRoomAndDate(Room room, LocalDateTime date);
 
     @Query(value = "FROM Availability a WHERE a.candidate = null")
     List<Availability> findAvailability();

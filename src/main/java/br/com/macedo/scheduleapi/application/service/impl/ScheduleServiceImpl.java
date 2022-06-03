@@ -1,6 +1,9 @@
 package br.com.macedo.scheduleapi.application.service.impl;
 
 import br.com.macedo.scheduleapi.application.service.ScheduleService;
+import br.com.macedo.scheduleapi.domain.entities.Candidate;
+import br.com.macedo.scheduleapi.domain.entities.Exam;
+import br.com.macedo.scheduleapi.domain.entities.Room;
 import br.com.macedo.scheduleapi.domain.exception.ClientException;
 import br.com.macedo.scheduleapi.domain.vo.ScheduleVO;
 import br.com.macedo.scheduleapi.mapper.EntitiesMapper;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -34,44 +38,60 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Transactional
     public ScheduleVO insert(ScheduleVO s) {
 
-        var candidate = candidateRepository.findById(s.getCandidate().getId()).orElseThrow(
-                () -> new ClientException(new Exception("Candidate not found"))
+        var availability = availabilityRepository.findByRoomAndDate(findRoom(s), s.getDate()).orElseThrow(
+                () -> new ClientException("Availability not available")
         );
-
-        var room = roomRepository.findById(s.getRoom().getNumber()).orElseThrow(
-                () -> new ClientException(new Exception("Room not found"))
-        );
-
-        var exam = examRepository.findById(s.getExam().getId()).orElseThrow(
-                () -> new ClientException(new Exception("Exam not found"))
-        );
-
-        //find availability by date
-        var lstAvailability = availabilityRepository.findByRoomAndDate(room, s.getDate());
-
-        if (lstAvailability.isEmpty()) {
-            throw new ClientException(new Exception("Availability not available"));
-        }
-
-        var availability = lstAvailability.stream().findFirst().get();
 
         if (availability.getCandidate() != null) {
-            throw new ClientException(new Exception("Availability not available"));
+            throw new ClientException("Availability not available");
         }
 
-        availability.setExam(exam);
-        availability.setCandidate(candidate);
+        availability.setExam(findExam(s));
+        availability.setCandidate(findCandidate(s));
 
         return entitiesMapper.toScheduleVO(availabilityRepository.save(availability));
 
     }
+
+    private Exam findExam(ScheduleVO s) {
+
+        var exam = Optional.ofNullable(s.getExam()).orElseThrow(() ->
+                new ClientException("Exam is null"));
+
+        return examRepository.findById(exam.getId()).orElseThrow(
+                () -> new ClientException("Exam not found")
+        );
+    }
+
+    private Room findRoom(ScheduleVO s) {
+
+        var room = Optional.ofNullable(s.getRoom()).orElseThrow(() ->
+                new ClientException("Room is null"));
+
+        return roomRepository.findById(room.getNumber()).orElseThrow(
+                () -> new ClientException("Room not found")
+        );
+
+    }
+
+    private Candidate findCandidate(ScheduleVO s) {
+
+        var candidate = Optional.ofNullable(s.getCandidate()).orElseThrow(() ->
+                new ClientException("Candidate is null"));
+
+        return candidateRepository.findById(candidate.getId()).orElseThrow(
+                () -> new ClientException("Candidate not found")
+        );
+
+    }
+
 
     @Override
     @Transactional
     public void delete(Long id) {
 
         var availability = availabilityRepository.findById(id).orElseThrow(() ->
-                new ClientException(new Exception("Schedule not found")));
+                new ClientException("Schedule not found"));
 
         availability.setCandidate(null);
         availability.setExam(null);
@@ -82,7 +102,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleVO getById(Long id) {
         var availability = availabilityRepository.findById(id).orElseThrow(() ->
-                new ClientException(new Exception("Schedule not found")));
+                new ClientException("Schedule not found"));
 
         return entitiesMapper.toScheduleVO(availability);
     }

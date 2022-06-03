@@ -16,4 +16,10 @@ public class ClientException extends WebApplicationException {
         this.message = cause.getMessage();
     }
 
+
+    public ClientException(String message) {
+        super(new Exception(message));
+        this.message = message;
+    }
+
 }
