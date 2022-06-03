@@ -34,4 +34,6 @@ public interface EntitiesMapper {
     ScheduleVO toScheduleVO(Availability a);
 
     List<CandidateVO> toListCandidate(List<Candidate> c);
+
+    List<ExamVO> toListExamVo(List<Exam> e);
 }

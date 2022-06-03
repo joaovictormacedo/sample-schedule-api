@@ -72,7 +72,7 @@ public class AvailabilityController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
-    public Response update(@RequestBody AvailabilityRequestDTO availability) {
+    public Response update(@RequestBody AvailabilityDTO availability) {
 
         try {
             var availabilityVO = availabilityService.update(mapperApi.toAvailabilityVO(availability));

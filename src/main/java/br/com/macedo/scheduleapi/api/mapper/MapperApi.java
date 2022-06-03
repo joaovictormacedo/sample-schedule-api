@@ -22,10 +22,12 @@ public interface MapperApi {
     ExamDTO toExamDTO(ExamVO e);
 
     ExamVO toExamVO(ExamRequestDTO e);
+    ExamVO toExamVO(ExamDTO e);
 
 
     /* Candidate */
     CandidateVO toCandidateVO(CandidateRequestDTO c);
+    CandidateVO toCandidateVO(CandidateDTO c);
 
     CandidateDTO toCandidateDTO(CandidateVO c);
 
@@ -35,6 +37,8 @@ public interface MapperApi {
     List<AvailabilityDTO> toListAvailabilityDTO(List<AvailabilityVO> v);
 
     AvailabilityVO toAvailabilityVO(AvailabilityRequestDTO v);
+
+    AvailabilityVO toAvailabilityVO(AvailabilityDTO v);
 
 
     /* Schedule */
@@ -47,4 +51,6 @@ public interface MapperApi {
     ScheduleVO toScheduleVO(ScheduleRequestDTO s);
 
     List<CandidateVO> toListCandidateDTO(List<CandidateVO> c);
+
+    List<ExamDTO> toListExamDTO(List<ExamVO> l);
 }

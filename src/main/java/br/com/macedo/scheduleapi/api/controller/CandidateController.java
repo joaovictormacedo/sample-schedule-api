@@ -68,7 +68,7 @@ public class CandidateController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = CandidateDTO.class),
             @ApiResponse(code = 204, message = "Not Content"),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
-    public Response update(@RequestBody CandidateRequestDTO candidate) {
+    public Response update(@RequestBody CandidateDTO candidate) {
 
         try {
             var candidateVO = candidateService.update(mapperApi.toCandidateVO(candidate));
