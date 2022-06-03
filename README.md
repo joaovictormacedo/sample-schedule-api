@@ -18,7 +18,7 @@ CRUD API for certificate exam scheduling
 
 ## 🚀 Development 
 
-* Add `<-Dspring.profiles.active=dev>` for use `<application-dev.properties>`
+* Add `-Dspring.profiles.active=dev` for use `application-dev.properties`
 
 ## 📫 Postman
 
@@ -26,4 +26,4 @@ CRUD API for certificate exam scheduling
 
 ## 📝 Swagger
 
-* After running the project, access `<http://localhost:8080/swagger-ui/index.html?url=/api/swagger.json>` to view the application swagger
+* After running the project, access `http://localhost:8080/swagger-ui/index.html?url=/api/swagger.json` to view the application swagger
