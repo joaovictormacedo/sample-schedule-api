@@ -46,4 +46,5 @@ public interface MapperApi {
     @Mapping(target = "date", source = "date")
     ScheduleVO toScheduleVO(ScheduleRequestDTO s);
 
+    List<CandidateVO> toListCandidateDTO(List<CandidateVO> c);
 }

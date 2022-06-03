@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 @Path("/availability")
 @ApplicationPath("/api")
@@ -100,7 +101,8 @@ public class AvailabilityController {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class,
+            responseContainer = "List"),
             @ApiResponse(code = 204, message = "Not Content"),
             @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
     public Response getAll() {

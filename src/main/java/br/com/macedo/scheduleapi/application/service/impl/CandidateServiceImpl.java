@@ -8,6 +8,8 @@ import br.com.macedo.scheduleapi.repository.CandidateRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
@@ -25,7 +27,7 @@ public class CandidateServiceImpl implements CandidateService {
     public void delete(Long id) {
 
         var candidate = candidateRepository.findById(id).orElseThrow(()->
-                new ClientException(new Exception("Client not found")));
+                new ClientException(new Exception("Candidate not found")));
 
         try{
             candidateRepository.delete(candidate);
@@ -38,5 +40,19 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public CandidateVO update(CandidateVO c) {
         return entitiesMapper.toCandidateVO(candidateRepository.save(entitiesMapper.toCandidate(c)));
+    }
+
+    @Override
+    public List<CandidateVO> get() {
+        return entitiesMapper.toListCandidate(candidateRepository.findAll());
+    }
+
+    @Override
+    public CandidateVO getById(Long id) {
+
+        var candidate = candidateRepository.findById(id).orElseThrow(()->
+                new ClientException(new Exception("Candidate not found")));
+
+        return entitiesMapper.toCandidateVO(candidate);
     }
 }

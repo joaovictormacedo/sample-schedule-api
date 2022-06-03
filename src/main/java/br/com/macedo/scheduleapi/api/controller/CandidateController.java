@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
+import java.util.List;
 
 @Path("/candidate")
 @ApplicationPath("/api")
@@ -76,5 +78,38 @@ public class CandidateController {
         }
 
     }
+
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = CandidateDTO.class),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response get(@PathParam("id") Long id) {
+        try {
+            var candidateVO = candidateService.getById(id);
+            return Response.ok().entity(mapperApi.toCandidateDTO(candidateVO)).build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+    }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = CandidateDTO.class,
+            responseContainer = "List"),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response getAll() {
+        try {
+            var lstCandidate = candidateService.get();
+            return Response.ok().entity(mapperApi.toListCandidateDTO(lstCandidate)).build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+    }
+
 
 }
