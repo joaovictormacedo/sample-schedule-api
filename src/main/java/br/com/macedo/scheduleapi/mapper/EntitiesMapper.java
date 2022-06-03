@@ -7,6 +7,8 @@ import br.com.macedo.scheduleapi.domain.entities.Room;
 import br.com.macedo.scheduleapi.domain.vo.*;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface EntitiesMapper {
 
@@ -23,6 +25,7 @@ public interface EntitiesMapper {
     Candidate toCandidate(CandidateVO c);
 
     AvailabilityVO toAvailabilityVO(Availability a);
+    List<AvailabilityVO> toListAvailabilityVO(List<Availability> a);
 
     Availability toAvailability(AvailabilityVO a);
 

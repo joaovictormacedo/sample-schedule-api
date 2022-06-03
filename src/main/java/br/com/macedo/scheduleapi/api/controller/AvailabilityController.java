@@ -79,8 +79,39 @@ public class AvailabilityController {
         } catch (ClientException e) {
             return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
         }
-
     }
+
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response get(@PathParam("id") Long id) {
+        try {
+            var availabilityVO = availabilityService.getById(id);
+            return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+    }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response getAll() {
+        try {
+            var lstAvailabilityVO = availabilityService.getAll();
+            return Response.ok().entity(mapperApi.toListAvailabilityDTO(lstAvailabilityVO)).build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+    }
+
 
 
 }

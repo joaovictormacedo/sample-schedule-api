@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -64,5 +65,21 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         //TODO: verificar se o horário da disponibilidade não conflita com outra no update
 
         return entitiesMapper.toAvailabilityVO(availabilityRepository.save(entitiesMapper.toAvailability(a)));
+    }
+
+    @Override
+    public AvailabilityVO getById(Long id) {
+
+        var availability = availabilityRepository.findById(id).orElseThrow(() ->
+                new ClientException(new Exception("availability not found")));
+
+        return entitiesMapper.toAvailabilityVO(availability);
+    }
+
+
+    @Override
+    public List<AvailabilityVO> getAll() {
+        var availability = availabilityRepository.findAvailability();
+        return entitiesMapper.toListAvailabilityVO(availability);
     }
 }

@@ -7,6 +7,8 @@ import br.com.macedo.scheduleapi.domain.vo.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper
 public interface MapperApi {
 
@@ -30,6 +32,7 @@ public interface MapperApi {
 
     /* Availability */
     AvailabilityDTO toAvailabilityDTO(AvailabilityVO v);
+    List<AvailabilityDTO> toListAvailabilityDTO(List<AvailabilityVO> v);
 
     AvailabilityVO toAvailabilityVO(AvailabilityRequestDTO v);
 
