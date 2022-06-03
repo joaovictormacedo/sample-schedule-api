@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd">
+    <changeSet author="Joao Victor Macedo" id="1">
+        <createTable tableName="availability">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="availability_pkey"/>
+            </column>
+            <column name="date" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="candidate_id" type="BIGINT"/>
+            <column name="exam_id" type="BIGINT"/>
+            <column name="room_number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="2">
+        <createTable tableName="candidate">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="candidate_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="3">
+        <createTable tableName="exam">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="exam_pkey"/>
+            </column>
+            <column name="date" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="4">
+        <createTable tableName="room_availabilities">
+            <column name="room_number" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="availabilities_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="5">
+        <addUniqueConstraint columnNames="availabilities_id" constraintName="uk_r0qbn6r4dh32296xdnxpnanyq"
+                             tableName="room_availabilities"/>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="6">
+        <createTable tableName="room">
+            <column name="number" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="room_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="7">
+        <addForeignKeyConstraint baseColumnNames="availabilities_id" baseTableName="room_availabilities"
+                                 constraintName="fk1ejrgk2vc6jbeunslerixrx44" deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="availability" validate="true"/>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="8">
+        <addForeignKeyConstraint baseColumnNames="candidate_id" baseTableName="availability"
+                                 constraintName="fk2oqcw5dm55mujffjmwmlqekmo" deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="candidate" validate="true"/>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="9">
+        <addForeignKeyConstraint baseColumnNames="room_number" baseTableName="availability"
+                                 constraintName="fk3yc6fc5kruan7a01v29j03d1j" deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="number"
+                                 referencedTableName="room" validate="true"/>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="10">
+        <addForeignKeyConstraint baseColumnNames="room_number" baseTableName="room_availabilities"
+                                 constraintName="fk88ciqwvw1ua9gtgrqwv2xvm1i" deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="number"
+                                 referencedTableName="room" validate="true"/>
+    </changeSet>
+    <changeSet author="Joao Victor Macedo" id="11">
+        <addForeignKeyConstraint baseColumnNames="exam_id" baseTableName="availability"
+                                 constraintName="fk8eavnsape253b6lp7u93eddxk" deferrable="false"
+                                 initiallyDeferred="false"
+                                 onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id"
+                                 referencedTableName="exam"
+                                 validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
