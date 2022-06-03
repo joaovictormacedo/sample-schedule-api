@@ -120,6 +120,13 @@
             <version>${springdoc.openapi}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.11.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
