@@ -9,6 +9,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -42,5 +43,44 @@ public class AvailabilityController {
         }
 
     }
+
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = String.class),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response delete(@PathParam("id") Long id) {
+
+        try {
+            availabilityService.delete(id);
+            return Response.ok().entity("Availability successfully deleted").build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+
+    }
+
+
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "OK", response = AvailabilityDTO.class),
+            @ApiResponse(code = 204, message = "Not Content"),
+            @ApiResponse(code = 400, message = "Bad Request", response = String.class)})
+    public Response update(@RequestBody AvailabilityRequestDTO availability) {
+
+        try {
+            var availabilityVO = availabilityService.update(mapperApi.toAvailabilityVO(availability));
+            return Response.ok().entity(mapperApi.toAvailabilityDTO(availabilityVO)).build();
+        } catch (ClientException e) {
+            return Response.status(HttpStatus.BAD_REQUEST.value()).entity(e.getMessage()).build();
+        }
+
+    }
+
 
 }

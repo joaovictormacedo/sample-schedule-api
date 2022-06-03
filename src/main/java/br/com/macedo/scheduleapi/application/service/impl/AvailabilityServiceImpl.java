@@ -42,4 +42,27 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return entitiesMapper.toAvailabilityVO(availabilityRepository.save(entitiesMapper.toAvailability(a)));
 
     }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+
+        var availability = availabilityRepository.findById(id).orElseThrow(() ->
+                new ClientException(new Exception("Availability not found")));
+
+        try{
+            availabilityRepository.delete(availability);
+        }catch (Exception e){
+            throw new ClientException(new Exception("Availability delete fail"));
+        }
+    }
+
+    @Override
+    @Transactional
+    public AvailabilityVO update(AvailabilityVO a) {
+
+        //TODO: verificar se o horário da disponibilidade não conflita com outra no update
+
+        return entitiesMapper.toAvailabilityVO(availabilityRepository.save(entitiesMapper.toAvailability(a)));
+    }
 }
